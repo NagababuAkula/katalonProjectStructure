@@ -97,7 +97,7 @@ public class Verifications {
 			KeywordUtil.markFailedAndStop(failureDescription)
 		}
 	}
-	
+
 	@Keyword
 	def getUrlAndVerify(String name, String failuredescription ) {
 		if(!(WebUI.getUrl().endsWith(name))) {
