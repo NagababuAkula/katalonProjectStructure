@@ -9,4 +9,9 @@
       <initValue>30</initValue>
       <name>defaultWaitTime</name>
    </GlobalVariableEntity>
+   <GlobalVariableEntity>
+      <description></description>
+      <initValue>'&quot;&quot;'</initValue>
+      <name>ApplicationPath</name>
+   </GlobalVariableEntity>
 </GlobalVariableEntities>

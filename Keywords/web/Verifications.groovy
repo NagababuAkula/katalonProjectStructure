@@ -9,7 +9,7 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable
 
 public class Verifications {
-	
+
 	/**
 	 * Reusable Methods
 	 */
@@ -87,5 +87,22 @@ public class Verifications {
 
 	@Keyword
 	def verifyTextboxEditable(TestObject element){
+	}
+
+	@Keyword
+	def verifyObjectsMatch(def actual, def expected, String failureDescription){
+
+		if(!actual.equals(expected)) {
+			WebUI.takeScreenshot()
+			KeywordUtil.markFailedAndStop(failureDescription)
+		}
+	}
+	
+	@Keyword
+	def getUrlAndVerify(String name, String failuredescription ) {
+		if(!(WebUI.getUrl().endsWith(name))) {
+			WebUI.takeScreenshot()
+			KeywordUtil.markFailed(failuredescription)
+		}
 	}
 }

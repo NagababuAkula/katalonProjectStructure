@@ -13,62 +13,61 @@ import internal.GlobalVariable
 import kms.turing.katalon.plugins.helper.table.HTMLTableHelper
 
 public class Actions {
-	
-	
+
+
 	int waitTime = GlobalVariable.defaultWaitTime
-	
-		@Keyword
-		def click(TestObject element) {
-			wait(element)
-			WebUI.waitForElementClickable(element, waitTime)
-			WebUI.click(element)
+
+	@Keyword
+	def click(TestObject element) {
+		wait(element)
+		WebUI.waitForElementClickable(element, waitTime)
+		WebUI.click(element)
+	}
+
+	@Keyword
+	def sendKeys(TestObject element, String text) {
+		wait(element)
+		WebUI.waitForElementClickable(element, waitTime)
+		WebUI.clearText(element)
+		WebUI.sendKeys(element, text)
+	}
+
+	@Keyword
+	def sendKeysEncrypted(TestObject element, String encryptedText) {
+		wait(element)
+		WebUI.waitForElementClickable(element, waitTime)
+		WebUI.setEncryptedText(element, encryptedText)
+	}
+
+	@Keyword
+	def getText(TestObject element, int maxWaitTime = waitTime) {
+		wait(element, maxWaitTime)
+		return WebUI.getText(element).trim()
+	}
+
+	@Keyword
+	def wait(TestObject element, int maxWaitTime = waitTime) {
+		WebUI.waitForElementPresent(element, maxWaitTime)
+		WebUI.waitForElementVisible(element, maxWaitTime)
+	}
+
+	@Keyword
+	def getElementCount(TestObject element, int waitTimeLocal = waitTime) {
+
+		def count
+		if(!WebUI.verifyElementPresent(element, waitTimeLocal, FailureHandling.OPTIONAL)) {
+			count = 0
 		}
-	
-		@Keyword
-		def sendKeys(TestObject element, String text) {
-			wait(element)
-			WebUI.waitForElementClickable(element, waitTime)
-			WebUI.clearText(element)
-			WebUI.sendKeys(element, text)
+		else {
+			count = WebUiCommonHelper.findWebElements(element, waitTime).size()
 		}
-	
-		@Keyword
-		def sendKeysEncrypted(TestObject element, String encryptedText) {
-			wait(element)
-			WebUI.waitForElementClickable(element, waitTime)
-			WebUI.setEncryptedText(element, encryptedText)
-		}
-	
-		@Keyword
-		def getText(TestObject element, int maxWaitTime = waitTime) {
-			wait(element, maxWaitTime)
-			return WebUI.getText(element).trim()
-		}
-	
-		@Keyword
-		def wait(TestObject element, int maxWaitTime = waitTime) {
-			WebUI.waitForElementPresent(element, maxWaitTime)
-			WebUI.waitForElementVisible(element, maxWaitTime)
-		}
-	
-		@Keyword
-		def getElementCount(TestObject element, int waitTimeLocal = waitTime) {
-	
-			def count
-			if(!WebUI.verifyElementPresent(element, waitTimeLocal, FailureHandling.OPTIONAL)) {
-				count = 0
-			}
-			else {
-				count = WebUiCommonHelper.findWebElements(element, waitTime).size()
-			}
-			return count
-		}
-	
-		@Keyword
-		def getColumnIndex(List headers, String columName){
-	
-			WebElement table = HTMLTableHelper.identifyTableByColumnHeaders(headers, 10,  FailureHandling.CONTINUE_ON_FAILURE)
-			return HTMLTableHelper.getColumnIndexByHeader(table, columName, FailureHandling.STOP_ON_FAILURE)
-		}
-	
+		return count
+	}
+
+	@Keyword
+	def getColumnIndex(List headers, String columName){
+
+		WebElement table = HTMLTableHelper.identifyTableByColumnHeaders(headers, 10,  FailureHandling.CONTINUE_ON_FAILURE)
+		return HTMLTableHelper.getColumnIndexByHeader(table, columName, FailureHandling.STOP_ON_FAILURE)
+	}
 }
